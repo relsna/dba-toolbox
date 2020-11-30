@@ -1,2 +1,2 @@
-# dba-scripts
-Various T-SQL and PowerShell scripts
+# dba-toolbox
+Usefull T-SQL and PowerShell scripts
