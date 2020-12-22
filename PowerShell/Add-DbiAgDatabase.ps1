@@ -23,6 +23,7 @@ function Add-DbiAgDatabase {
             
         To Do :
             - EXECUTE AS LOGIN = 'sa'
+            - Not take new backup - Use existing backups (backuphistory) 
 
         .PARAMETER Listener
         Listener Name

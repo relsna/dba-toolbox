@@ -1,6 +1,4 @@
-﻿
-
-<#
+﻿<#
     Generate script to :
         - Remove Listener
         - Failover to 07
@@ -44,16 +42,3 @@ foreach ($lsn in $Listeners) {
         "" | Out-File -FilePath $destinationFile -Append
      }
 }
-
-<#
---	Sur le Primary
-USE [master]
-GO
-
-GO
-USE [master]
-GO
-
-GO
-
-#>
