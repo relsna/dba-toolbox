@@ -1,22 +1,40 @@
 
-<#
-Take a Primary Replica instance as input
-    - Add all databases to the Availability Group.
-    - Maunal Seeding => Backup -> Copy -> Restore
-
-#inspired by code from ijeb
-#https://github.com/sqlcollaborative/dbatools/issues/4610
-
-#  todo:  restore login SA
-#>
-
-# Add-DbiAgDatabase -Listener 'LST-APP-QUAL' -Verbose
-
 function Add-DbiAgDatabase {
     
     param (
-        [Parameter(Mandatory=$true)]$listener
+        [Parameter(Mandatory=$true)]$Listener
     )
+
+    <#
+        .SYNOPSIS
+        Adds databases to AlwaysOn Availability Group
+
+        .DESCRIPTION
+        Work In Progress
+        Do not use in Prod
+
+        Takes a Listener name as parameter.
+            - Go to the primary replica the listener is currently on
+            - For all databases that are not existing on any secondary replica
+                - Backup database
+                - Copy to secondary replica default backup folder
+                - Restore database with recovery
+                - Add DB to the Availability Group related to the Listener in parameter
+            
+        To Do :
+            - EXECUTE AS LOGIN = 'sa'
+
+        .PARAMETER Listener
+        Listener Name
+
+
+        .EXAMPLE
+        C:\PS> Add-DbiAgDatabase -Listener 'LST-APP-QUAL' -Verbose
+        File.txt
+
+        .LINK
+        Online version: https://github.com/relsna/dba-toolbox/tree/main/PowerShell
+    #>
 
     $primaryReplica =    Get-DbaAgReplica -SqlInstance $listener | Select-Object -Unique | Where-Object Role -eq Primary
     $secondaryReplicas = Get-DbaAgReplica -SqlInstance $listener | Select-Object -Unique | Where-Object Role -eq Secondary
