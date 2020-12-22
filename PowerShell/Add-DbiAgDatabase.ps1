@@ -31,25 +31,24 @@ function Add-DbiAgDatabase {
 
         .EXAMPLE
         C:\PS> Add-DbiAgDatabase -Listener 'LST-APP-QUAL' -Verbose
-        File.txt
 
         .LINK
         Online version: https://github.com/relsna/dba-toolbox/tree/main/PowerShell
     #>
 
+    # To check if this is OK with multiple AG primary on this replica?
     $primaryReplica =    Get-DbaAgReplica -SqlInstance $listener | Select-Object -Unique | Where-Object Role -eq Primary
     $secondaryReplicas = Get-DbaAgReplica -SqlInstance $listener | Select-Object -Unique | Where-Object Role -eq Secondary
+    
     # Get only the AG related to the listener. Excluse other AG on the instance
     $AG = (Get-DbaAgListener -SqlInstance $listener | Where-Object Name -eq $listener).AvailabilityGroup
-
-    $allbackups = @{}
     $databases = Get-DbaDatabase -SqlInstance $primaryReplica.Name
+    $allbackups = @{}
 
     foreach ($db in $databases) {
         $primaryDb = Get-DbaDatabase -SqlInstance $primaryReplica.Name -Database $db.Name
         
         foreach ($second in $secondaryReplicas) {
-            Write-Verbose "priamry:  $db"
             $secondaryDb = Get-DbaDatabase -SqlInstance $second.Name -Database $db.Name
             Write-Verbose "secondary:  $secondaryDb"
 
@@ -77,15 +76,14 @@ function Add-DbiAgDatabase {
                 # Check if DB is aready joined to AG
                 $agInDb = Get-DbaAgDatabase -SqlInstance $primaryReplica.Name -AvailabilityGroup $AG | Where-Object Name -eq $db.Name
                 if (-not $agInDb) {
-                    Write-Verbose "not agInDb"
+                    Write-Verbose "not agInDb primary"
                     $query = "ALTER AVAILABILITY GROUP [$($AG)] ADD DATABASE [$($db.Name)]" 
                     Invoke-DbaQuery -SqlInstance $primaryReplica.Name -Query $query
                 }
-                Write-Verbose "set hadr"
                 $agInDb = Get-DbaAgDatabase -SqlInstance $second.Name -AvailabilityGroup $AG | Where-Object Name -eq $db.Name
                 if (-not $agInDb) {
-                    Write-Verbose "set hadr2"
-                    #Add-DbaAgDatabase -SqlInstance $second.Name -AvailabilityGroup $AG -Database $db.Name -Secondary
+                    Write-Verbose "not agInDb secondary"
+                    # Add-DbaAgDatabase -SqlInstance $second.Name -AvailabilityGroup $AG -Database $db.Name -Secondary
                     $query = "ALTER DATABASE [$($db.Name)] SET HADR AVAILABILITY GROUP = [$($AG)]"
                     Invoke-DbaQuery -SqlInstance $second.Name -Query $query
                 }
