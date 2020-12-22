@@ -23,11 +23,11 @@ function Add-DbiAgDatabase {
             
         To Do :
             - EXECUTE AS LOGIN = 'sa'
-            - Not take new backup - Use existing backups (backuphistory) 
+            - Not take new backup - Use existing backups - Get-DbaBackupHistory
+            - Some instances (2017) have automatic seeding - Add-DbaAgDatabase
 
         .PARAMETER Listener
         Listener Name
-
 
         .EXAMPLE
         C:\PS> Add-DbiAgDatabase -Listener 'LST-APP-QUAL' -Verbose
@@ -74,7 +74,7 @@ function Add-DbiAgDatabase {
             
                 $allbackups[$db] | Restore-DbaDatabase -SqlInstance $second.Name -WithReplace -NoRecovery -EnableException
             
-                #Check si la DB est déjà dans le groupe ou pas
+                # Check if DB is aready joined to AG
                 $agInDb = Get-DbaAgDatabase -SqlInstance $primaryReplica.Name -AvailabilityGroup $AG | Where-Object Name -eq $db.Name
                 if (-not $agInDb) {
                     Write-Verbose "not agInDb"
@@ -89,9 +89,7 @@ function Add-DbiAgDatabase {
                     $query = "ALTER DATABASE [$($db.Name)] SET HADR AVAILABILITY GROUP = [$($AG)]"
                     Invoke-DbaQuery -SqlInstance $second.Name -Query $query
                 }
-
-            } # if (-not $secondaryDb)
-
-        } # foreach ($second in $secondaries)
+            }
+        }
     }
 }
