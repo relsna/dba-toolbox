@@ -25,6 +25,9 @@ function Add-DbiAgDatabase {
             - EXECUTE AS LOGIN = 'sa'
             - Not take new backup - Use existing backups - Get-DbaBackupHistory
             - Some instances (2017) have automatic seeding - Add-DbaAgDatabase
+            - Put DB in FULL recovery model if SIMPLE
+                WARNING: [07:03:50][Backup-DbaDatabase] [Trace-M3TE100QAL] is in simple recovery mode, cannot take log backup
+            - Delete backup files
 
         .PARAMETER Listener
         Listener Name
