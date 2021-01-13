@@ -1,8 +1,16 @@
+try {
+    Get-Module -Name dbatools | Remove-Module
+    Import-Module dbatools -MinimumVersion '1.0.135' -Force
+} catch {
+    Write-Warning 'dbatools module 1.0.135+ is mandatory. Exit...'
+    exit
+}
 
 function Add-DbiAgDatabase {
     
     param (
         [Parameter(Mandatory=$true)]$Listener
+        , [Parameter(Mandatory=$false)]$DbOwner = "sa"
     )
 
     <#
@@ -13,6 +21,8 @@ function Add-DbiAgDatabase {
         Work In Progress
         Do not use in Prod
 
+        Requires dbatools 1.0.135 minimum (Restore-DbaDatabase -ExecuteAs)
+
         Takes a Listener name as parameter.
             - Go to the primary replica the listener is currently on
             - For all databases that are not existing on any secondary replica
@@ -22,12 +32,10 @@ function Add-DbiAgDatabase {
                 - Add DB to the Availability Group related to the Listener in parameter
             
         To Do :
-            - EXECUTE AS LOGIN = 'sa'
             - Not take new backup - Use existing backups - Get-DbaBackupHistory
             - Some instances (2017) have automatic seeding - Add-DbaAgDatabase
-            - Put DB in FULL recovery model if SIMPLE
-                WARNING: [07:03:50][Backup-DbaDatabase] [Trace-M3TE100QAL] is in simple recovery mode, cannot take log backup
             - Delete backup files
+            - Use dbi tools backup path
 
         .PARAMETER Listener
         Listener Name
@@ -57,10 +65,20 @@ function Add-DbiAgDatabase {
 
             if (-not $secondaryDb) {
                 Write-Verbose $db.Name
-                # Backup Primary 
-                $fullbackup = $primarydb | Backup-DbaDatabase -Checksum -CompressBackup -Type Full -EnableException -Initialize
-                $logbackup = $primarydb | Backup-DbaDatabase -Checksum -CompressBackup -Type Log -EnableException -Initialize
-                $allbackups[$db] = $fullbackup, $logbackup
+
+                # Check if database is in FULL recovery Model
+                #$primaryDb | select *
+                if ($primaryDb.RecoveryModel -ne 'Full') {
+                    $primaryDb | Set-DbaDbRecoveryModel -RecoveryModel Full -Confirm:$false
+                }
+                
+                # Primary Replica Backup
+                #$allbackups[$db] = Get-DbaDbBackupHistory -SqlInstance $primaryReplica.Name -Database $primarydb.Name -IncludeCopyOnly -Last -EnableException
+                #if (-not $allbackups[$db]) {
+                    $fullbackup = $primarydb | Backup-DbaDatabase -Checksum -CompressBackup -Type Full -EnableException -Initialize
+                    $logbackup = $primarydb | Backup-DbaDatabase -Checksum -CompressBackup -Type Log -EnableException -Initialize
+                    $allbackups[$db] = $fullbackup, $logbackup
+                #}
 
                 foreach ($file in $allbackups[$db]) {
                     $backupPath =  $file.Path -replace ':', '$'
@@ -74,7 +92,7 @@ function Add-DbiAgDatabase {
                     Copy-Item -Path $primaryPath -Destination $secondaryPath
                 }
             
-                $allbackups[$db] | Restore-DbaDatabase -SqlInstance $second.Name -WithReplace -NoRecovery -EnableException
+                $allbackups[$db] | Restore-DbaDatabase -SqlInstance $second.Name -ExecuteAS $DbOwner -WithReplace -NoRecovery -EnableException
             
                 # Check if DB is aready joined to AG
                 $agInDb = Get-DbaAgDatabase -SqlInstance $primaryReplica.Name -AvailabilityGroup $AG | Where-Object Name -eq $db.Name
@@ -83,7 +101,7 @@ function Add-DbiAgDatabase {
                     $query = "ALTER AVAILABILITY GROUP [$($AG)] ADD DATABASE [$($db.Name)]" 
                     Invoke-DbaQuery -SqlInstance $primaryReplica.Name -Query $query
                 }
-                $agInDb = Get-DbaAgDatabase -SqlInstance $second.Name -AvailabilityGroup $AG | Where-Object Name -eq $db.Name
+                $agInDb = Get-DbaAgDatabase -SqlInstance $second.Name -AvailabilityGroup $AG |Where-Object {($_.Name -eq $db.Name) -and ($_.IsJoined -eq $true) -and ($_.SynchronizationState -eq 'Synchronized')}
                 if (-not $agInDb) {
                     Write-Verbose "not agInDb secondary"
                     # Add-DbaAgDatabase -SqlInstance $second.Name -AvailabilityGroup $AG -Database $db.Name -Secondary
