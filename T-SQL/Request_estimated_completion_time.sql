@@ -15,5 +15,5 @@ SELECT
 	, dateadd(second,estimated_completion_time/1000, getdate()) as est_completion_time
 FROM sys.dm_exec_requests AS r
 	CROSS APPLY sys.dm_exec_sql_text(r.sql_handle) AS s
-WHERE r.command in ('RESTORE DATABASE', 'BACKUP DATABASE', 'RESTORE LOG', 'BACKUP LOG')
+WHERE r.command in ('RESTORE DATABASE', 'BACKUP DATABASE', 'RESTORE LOG', 'BACKUP LOG', 'RESTORE HEADERONLY')
 
