@@ -3,6 +3,10 @@ List of blog posts I wrote on dbi services Blog.
 
 
 
+#### 2022-03-10
+Title: SQLBits 2022 – Levelling up my Performance Tuning skills<br />
+Link: https://blog.dbi-services.com/sqlbits-2022-levelling-up-my-performance-tuning-skills/<br />
+
 #### 2021-11-15
 Title: dbi Event Recap: SQL Server Automatic Tuning and Query Store<br />
 Link: https://blog.dbi-services.com/dbi-event-recap-sql-server-automatic-tuning-and-query-store/<br />
