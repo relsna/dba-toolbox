@@ -3,6 +3,10 @@ List of blog posts I wrote on dbi services Blog.
 
 
 
+#### 2022-04-20
+Title: SQL Server: Automatic Soft-NUMA and uneven CPU load<br />
+Link: https://blog.dbi-services.com/sql-server-automatic-soft-numa-and-uneven-cpu-load/<br />
+
 #### 2022-03-10
 Title: SQLBits 2022 – Levelling up my Performance Tuning skills<br />
 Link: https://blog.dbi-services.com/sqlbits-2022-levelling-up-my-performance-tuning-skills/<br />
