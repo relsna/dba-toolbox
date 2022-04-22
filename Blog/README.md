@@ -3,6 +3,10 @@ List of blog posts I wrote on dbi services Blog.
 
 
 
+#### 2022-04-22
+Title: SQL Server: Find who forced a plan in Query Store with this new XEvent<br />
+Link: https://blog.dbi-services.com/sql-server-find-who-forced-a-plan-in-query-store-with-this-new-xevent/<br />
+
 #### 2022-04-20
 Title: SQL Server: Automatic Soft-NUMA and uneven CPU load<br />
 Link: https://blog.dbi-services.com/sql-server-automatic-soft-numa-and-uneven-cpu-load/<br />
