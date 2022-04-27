@@ -56,6 +56,7 @@ WHILE (SELECT COUNT(*) FROM #DBList) > 0
 			END
  
 		PRINT 'ALTER DATABASE [' + @db_name + '] MODIFY FILE ( NAME = N''' + @LogicalName + ''', SIZE = '+@Size+' );'
+		--EXEC('ALTER DATABASE [' + @db_name + '] MODIFY FILE ( NAME = N''' + @LogicalName + ''', SIZE = '+@Size+' );')
 		DELETE FROM #DBList WHERE @LogicalName = LogicalName
 	END
  
@@ -127,6 +128,7 @@ WHILE (SELECT COUNT(*) FROM #DBList) > 0
 			END
  
 		PRINT 'ALTER DATABASE [' + @db_name + '] MODIFY FILE ( NAME = N''' + @LogicalName + ''', FILEGROWTH = '+@FileGrowth+' );'
+		--EXEC('ALTER DATABASE [' + @db_name + '] MODIFY FILE ( NAME = N''' + @LogicalName + ''', FILEGROWTH = '+@FileGrowth+' );')
 		DELETE FROM #DBList WHERE @LogicalName = LogicalName
 	END
  
