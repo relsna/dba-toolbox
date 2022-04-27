@@ -5,8 +5,8 @@
  
 SET NOCOUNT ON
  
-DECLARE @DataFileSize varchar(20) =       128    --    MB
-DECLARE @LogFileSize varchar(20) =        128    --    MB
+DECLARE @DataFileSize varchar(20) =       128	--    MB
+DECLARE @LogFileSize varchar(20) =        64	--    MB
  
 IF EXISTS (SELECT name FROM tempdb.dbo.sysobjects WHERE name LIKE N'%#DBList%')
 BEGIN
@@ -30,6 +30,7 @@ INSERT INTO #DBList
 	WHERE db.state_desc = 'ONLINE'
 	  AND db.user_access_desc = 'MULTI_USER'
 	  AND mf.database_id > 4
+	  AND db.is_read_only = 0
 	  AND (
 		(mf.type_desc = 'ROWS' AND mf.size*8/1024 < @DataFileSize)
 		OR (mf.type_desc = 'LOG' AND mf.size*8/1024 < @LogFileSize)
@@ -72,8 +73,8 @@ GO
  
 SET NOCOUNT ON
  
-DECLARE @DataFileGrowth varchar(20) =   128    --    MB
-DECLARE @LogFileGrowth varchar(20) =    128    --    MB
+DECLARE @DataFileGrowth varchar(20) =   128 	--    MB
+DECLARE @LogFileGrowth varchar(20) =    64		--    MB
  
 IF EXISTS (SELECT name FROM tempdb.dbo.sysobjects WHERE name LIKE N'%#DBList%')
 BEGIN
@@ -98,6 +99,7 @@ INSERT INTO #DBList
 	WHERE db.state_desc = 'ONLINE'
 	  AND db.user_access_desc = 'MULTI_USER'
 	  AND mf.database_id > 4
+	  AND db.is_read_only = 0
 	  AND (mf.is_percent_growth = 1 
 		OR (
 			(mf.type_desc = 'ROWS' AND mf.growth*8/1024 < @DataFileGrowth)
