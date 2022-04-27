@@ -15,7 +15,7 @@ END
 CREATE TABLE #DBList (
 	DatabaseName VARCHAR(400),
 	LogicalName VARCHAR(450),
-	Type_Desc varchar(50)
+	type_desc varchar(50)
 );
  
 INSERT INTO #DBList
@@ -84,7 +84,7 @@ CREATE TABLE #DBList (
 	DatabaseName VARCHAR(400),
 	LogicalName VARCHAR(450),
 	FileGrowthKB INT,
-	Type_Desc varchar(50)
+	type_desc varchar(50)
 );
  
 INSERT INTO #DBList
