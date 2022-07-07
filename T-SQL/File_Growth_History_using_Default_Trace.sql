@@ -15,6 +15,7 @@ SELECT g.DatabaseName AS DBName
 ELSE CONVERT(varchar(30), convert(decimal(19,2), mf.growth*8./1024.)) + 'MB' END AutoGrowSizeSetting
 , convert(decimal(19,2),mf.size* 8./1024.) AS fileSize
 , CASE WHEN mf.max_size = -1 THEN 'Unlimited' ELSE convert(varchar(30), convert(decimal(19,2),mf.max_size*8./1024.)) END AS maxFileSize
+, *
 FROM fn_trace_gettable(@tracepath, default) g
 cross apply sys.trace_events te 
 inner join sys.master_files mf
