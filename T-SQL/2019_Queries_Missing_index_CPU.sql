@@ -7,6 +7,8 @@ You should, as often as possible, execute the query and collect the actual execu
 
 */
 
+
+--	No Query Store
 SELECT TOP (50)
     query_text = 
         SUBSTRING
@@ -46,3 +48,59 @@ CROSS APPLY
 ) AS gqs
 ORDER BY qs.max_worker_time DESC
 OPTION(RECOMPILE);
+
+
+
+--	Query Store
+--	https://www.erikdarlingdata.com/sql-server/finding-query-store-queries-with-missing-index-requests-in-sql-server-2019/
+WITH
+    queries AS
+(
+    SELECT TOP (100)
+        parent_object_name = 
+            ISNULL
+            (
+                OBJECT_NAME(qsq.object_id),
+                'No Parent Object'
+            ),
+        qsqt.query_sql_text,
+        query_plan = 
+            TRY_CAST(qsp.query_plan AS xml),
+        qsrs.first_execution_time,
+        qsrs.last_execution_time,
+        qsrs.count_executions,
+        qsrs.avg_duration,
+        qsrs.avg_cpu_time,
+        qsp.query_plan_hash,
+        qsq.query_hash
+    FROM sys.query_store_runtime_stats AS qsrs
+    JOIN sys.query_store_plan AS qsp
+        ON qsp.plan_id = qsrs.plan_id
+    JOIN sys.query_store_query AS qsq
+        ON qsq.query_id = qsp.query_id
+    JOIN sys.query_store_query_text AS qsqt
+        ON qsqt.query_text_id = qsq.query_text_id
+    WHERE qsrs.last_execution_time >= DATEADD(DAY, -7, SYSDATETIME())
+    AND   qsrs.avg_cpu_time >= (10 * 1000)
+    AND   qsq.is_internal_query = 0
+    AND   qsp.is_online_index_plan = 0
+    ORDER BY qsrs.avg_cpu_time DESC
+)
+SELECT
+    qs.*
+FROM queries AS qs
+CROSS APPLY
+(
+    SELECT TOP (1)
+        gqs.*
+    FROM sys.dm_db_missing_index_group_stats_query AS gqs
+    WHERE qs.query_hash = gqs.query_hash
+    AND   qs.query_plan_hash = gqs.query_plan_hash
+    ORDER BY
+        gqs.last_user_seek DESC,
+        gqs.last_user_scan DESC
+) AS gqs
+ORDER BY qs.avg_cpu_time DESC
+OPTION(RECOMPILE);
+
+
