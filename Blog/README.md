@@ -1,6 +1,10 @@
 # Blog posts
 List of blog posts I wrote on dbi services Blog.
 
+#### 2022-06-09
+First look at SQL Server 2022 Contained Availability Groups<br />
+https://www.dbi-services.com/blog/first-look-at-sql-server-2022-contained-availability-groups/<br />
+
 #### 2022-06-01
 SQL Server 2022: Parameter Sensitive Plan optimization<br />
 https://www.dbi-services.com/blog/sql-server-2022-parameter-sensitive-plan-optimization/<br />
