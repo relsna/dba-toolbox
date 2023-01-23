@@ -24,4 +24,4 @@ and g.FileName = mf.name
 WHERE g.eventclass = te.trace_event_id
 and te.name in ('Data File Auto Grow','Log File Auto Grow')
 --GROUP BY StartTime,Databaseid, Filename, IntegerData, Duration
-order by StartTime desc
+order by 6 desc

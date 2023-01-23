@@ -1,6 +1,15 @@
 # Blog posts
 List of blog posts I wrote on dbi services Blog.
 
+
+#### 2023-01-23
+SQL Server: Heap page deallocation and IndexOptimize<br />
+https://www.dbi-services.com/blog/heap-deallocation-indexoptimize/<br />
+
+#### 2022-08-10
+SQL Server Deadlock on UPDATE with Serializable isolation level<br />
+https://www.dbi-services.com/blog/sql-server-deadlock-on-update-with-serializable-isolation-level/<br />
+
 #### 2022-06-09
 First look at SQL Server 2022 Contained Availability Groups<br />
 https://www.dbi-services.com/blog/first-look-at-sql-server-2022-contained-availability-groups/<br />
