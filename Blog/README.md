@@ -1,10 +1,20 @@
 # Blog posts
 List of blog posts I wrote on dbi services Blog.
+Total for now: 35
 
+### 2023
+2 blog posts
+
+#### 2023-04-10
+SQL Server: How Correlation assumptions work for multiple predicates<br />
+https://www.dbi-services.com/blog/sql-server-how-correlation-assumptions-work-for-multiple-predicates/<br />
 
 #### 2023-01-23
 SQL Server: Heap page deallocation and IndexOptimize<br />
 https://www.dbi-services.com/blog/heap-deallocation-indexoptimize/<br />
+
+### 2022
+7 blog posts
 
 #### 2022-08-10
 SQL Server Deadlock on UPDATE with Serializable isolation level<br />
@@ -33,6 +43,9 @@ https://www.dbi-services.com/blog/sql-server-automatic-soft-numa-and-uneven-cpu-
 #### 2022-03-10
 SQLBits 2022 – Levelling up my Performance Tuning skills<br />
 https://www.dbi-services.com/blog/sqlbits-2022-levelling-up-my-performance-tuning-skills/<br />
+
+### 2021
+12 blog posts
 
 #### 2021-11-15
 dbi Event Recap: SQL Server Automatic Tuning and Query Store<br />
@@ -82,46 +95,40 @@ https://www.dbi-services.com/blog/sql-server-create-a-shared-storage-for-your-fa
 SQL Server: Control the size of your Transaction Log file with Resumable Index Rebuild<br />
 https://www.dbi-services.com/blog/sql-server-control-the-size-of-your-transaction-log-file-with-resumable-index-rebuild/<br />
 
+### 2020
+14 blog posts
 
 #### 2020-12-21
 SQL Server: Having both Dynamic Ports and Static Port configured<br />
 https://www.dbi-services.com/blog/sql-server-tcp-having-both-dynamic-ports-and-static-port-configured/<br />
 
-
 #### 2020-12-14
 Validate your SQL Server infrastructure with dbachecks<br />
 https://www.dbi-services.com/blog/validate-your-sql-server-infrastructure-with-dbachecks/<br />
-
 
 #### 2020-12-03
 An Introduction to Pester – Unit Testing and Infrastructure checks in PowerShell<br />
 https://www.dbi-services.com/blog/an-introduction-to-pester-unit-testing-and-infrastructure-checks-in-powershell/<br />
 
-
 #### 2020-10-31
 Getting started with SQL Server in Linux containers with Docker Desktop and WSL2<br />
 https://www.dbi-services.com/blog/getting-started-with-sql-server-on-linux-containers-with-docker-desktop-and-wsl2/<br />
-
 
 #### 2020-10-18
 SQL Server: Generating SQL script using PowerShell and Template file<br />
 https://www.dbi-services.com/blog/sql-server-generating-sql-script-using-powershell-and-template-file/<br />
 
-
 #### 2020-10-14
 SQL Server AlwaysOn node "Add all eligible storage to the cluster"<br />
 https://www.dbi-services.com/blog/sql-server-alwayson-node-and-add-all-eligible-storage-to-the-cluster/<br />
-
 
 #### 2020-08-13
 SQL Server: High SQLCONNECTIONPOOL Memory Clerk consumption<br />
 https://www.dbi-services.com/blog/sql-server-high-sqlconnectionpool-memory-clerk-consumption/<br />
 
-
 #### 2020-07-29
 SQL Server Installation Wizard error : Failed to retrieve data for this request<br />
 https://www.dbi-services.com/blog/sql-server-installation-wizard-setup-error-failed-to-retrieve-data-for-this-request/<br />
-
 
 #### 2020-07-27
 SQL Server: Change Availability Group Endpoint Ownership<br />
@@ -131,24 +138,18 @@ https://www.dbi-services.com/blog/availability-group-endpoint-ownership/<br />
 Introduction to Azure SQL Database Auto-failover groups<br />
 https://www.dbi-services.com/blog/introduction-to-azure-sql-database-auto-failover-groups/<br />
 
-
 #### 2020-06-02
 How to create an Azure SQL Database using Azure PowerShell <br />
 https://www.dbi-services.com/blog/how-to-create-an-azure-sql-database-using-azure-powershell/<br />
-
 
 #### 2020-05-19
 SQL Server: Synchronize logins on AlwaysOn replicas with dbatools<br />
 https://www.dbi-services.com/blog/sql-server-quickly-clean-backup-history-with-dbatools/<br />
 
-
 #### 2020-03-27
 SQL Server: Quickly clean backup history with dbatools<br />
 https://www.dbi-services.com/blog/sql-server-quickly-clean-backup-history-with-dbatools/<br />
 
-
 #### 2020-03-04
 SQL Server: Collect Page Split events using Extended Event session<br />
 https://www.dbi-services.com/blog/sql-server-collect-page-split-events-using-extended-event-session/<br />
-
-
