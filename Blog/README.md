@@ -3,7 +3,11 @@ List of blog posts I wrote on dbi services Blog.
 Total for now: 35
 
 ### 2023
-2 blog posts
+3 blog posts
+
+#### 2023-05-17
+SQL Server: Is this ad hoc workload an issue?<br />
+https://www.dbi-services.com/blog/sql-server-is-this-ad-hoc-workload-an-issue/<br />
 
 #### 2023-04-10
 SQL Server: How Correlation assumptions work for multiple predicates<br />
