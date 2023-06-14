@@ -1,0 +1,14 @@
+--	Check Last DBCC CHECKDB
+drop table if exists #DBInfoCHECKDB
+drop table if exists #ValueCHECKDB
+CREATE TABLE #DBInfoCHECKDB (ParentObject VARCHAR(255), [Object] VARCHAR(255), Field VARCHAR(255), [Value] VARCHAR(255));
+CREATE TABLE #ValueCHECKDB (DatabaseName VARCHAR(255), LastDBCCCheckDB DATETIME);
+EXECUTE sp_MSforeachdb '
+INSERT INTO #DBInfoCHECKDB EXECUTE ("DBCC DBINFO ([?]) WITH TABLERESULTS");
+INSERT INTO #ValueCHECKDB (DatabaseName, LastDBCCCheckDB) (SELECT "?", [Value] FROM #DBInfoCHECKDB WHERE Field = "dbi_dbccLastKnownGood");
+TRUNCATE TABLE #DBInfoCHECKDB;
+'
+SELECT DatabaseName, MAX(LastDBCCCheckDB) AS LastDBCCCheckDB
+FROM #ValueCHECKDB
+GROUP BY DatabaseName
+ORDER BY LastDBCCCheckDB DESC
