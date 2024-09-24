@@ -1,6 +1,17 @@
 # Blog posts
-List of blog posts I wrote on dbi services Blog.
-Total for now: 35
+List of blog posts I wrote on dbi services' Blog.
+Total for now: 37
+
+### 2023
+2 blog posts
+
+#### 2024-06-10
+Plotting SQL Server Performance counters with Python
+https://www.dbi-services.com/blog/plotting-sql-server-performance-counters-with-python/
+
+#### 2024-05-14
+Attending SQLDay 2024 in Wrocław, Poland
+https://www.dbi-services.com/blog/attending-sqlday-2024-in-wroclaw-poland/
 
 ### 2023
 3 blog posts
