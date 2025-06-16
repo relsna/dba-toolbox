@@ -6,12 +6,12 @@ Total for now: 37
 2 blog posts
 
 #### 2024-06-10
-Plotting SQL Server Performance counters with Python
-https://www.dbi-services.com/blog/plotting-sql-server-performance-counters-with-python/
+Plotting SQL Server Performance counters with Python<br />
+https://www.dbi-services.com/blog/plotting-sql-server-performance-counters-with-python/<br />
 
 #### 2024-05-14
-Attending SQLDay 2024 in Wrocław, Poland
-https://www.dbi-services.com/blog/attending-sqlday-2024-in-wroclaw-poland/
+Attending SQLDay 2024 in Wrocław, Poland<br />
+https://www.dbi-services.com/blog/attending-sqlday-2024-in-wroclaw-poland/<br />
 
 ### 2023
 3 blog posts
