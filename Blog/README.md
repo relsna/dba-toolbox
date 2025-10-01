@@ -1,8 +1,23 @@
 # Blog posts
 List of blog posts I wrote on dbi services' Blog.
-Total for now: 37
+Total: 41
 
-### 2023
+### 2025
+3 blog posts
+
+#### 2024-06-23
+Step-by-Step Guide to Enabling Copilot in SSMS<br />
+https://www.dbi-services.com/blog/step-by-step-guide-to-enabling-copilot-in-ssms/<br />
+
+#### 2024-06-18
+Experiencing SQLBits 2025 in London<br />
+https://www.dbi-services.com/blog/experiencing-sqlbits-2025-in-london/<br />
+
+#### 2024-05-19
+SQL Server 2025 Public Preview and SSMS 21 now available<br />
+https://www.dbi-services.com/blog/sql-server-2025-public-preview-and-ssms-21-now-available/<br />
+
+### 2024
 2 blog posts
 
 #### 2024-06-10
